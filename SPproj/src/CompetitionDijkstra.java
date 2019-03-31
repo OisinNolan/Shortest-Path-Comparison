@@ -26,19 +26,33 @@ public class CompetitionDijkstra {
      * @param sA, sB, sC: speeds for 3 contestants
     */
     CompetitionDijkstra (String filename, int sA, int sB, int sC){
+    		int N, S;
+    		Graph G;
+    		
+    		// Creating Graph from file
+    		
     		try {
-			Scanner scanner = new Scanner(new File(filename));
-			int N = scanner.nextInt(); // total number of intersections (vertices)
-			int S = scanner.nextInt(); // total number of streets (edges)
-			while (scanner.hasNextLine()) {
+			Scanner fileScanner = new Scanner(new File(filename));
+			N = fileScanner.nextInt(); // total number of intersections (vertices)
+			S = fileScanner.nextInt(); // total number of streets (edges)
+			G = new Graph(N);
+			String line = "";;
+			while(fileScanner.hasNextLine()) {
+				int v = fileScanner.nextInt();
+				int w = fileScanner.nextInt();
+				double cost = fileScanner.nextDouble();
+				fileScanner.nextLine();
 				
+				G.addEdge(v, w, cost);
 			}
-			scanner.close();
+			G.printGraph();
+			fileScanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+    		
+    		//getShortestPath(random stuff), if time is bigger, set max to time.
     }
-
 
     /**
     * @return int: minimum minutes that will pass before the three contestants can meet
