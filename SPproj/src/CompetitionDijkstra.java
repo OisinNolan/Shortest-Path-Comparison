@@ -59,40 +59,35 @@ public class CompetitionDijkstra {
      */
     public int timeRequiredforCompetition(){
     		int maxTime = -1;
+    		    		
+    		// get a dist[] for each v in V.
+    		// find out which dist has the furthest away node.
+    		// multiply slowest walker by longest distance.
     		
-    		double[] distA, distB, distC;
+    		// slowest speed:
+    		int slowest = sA;
+    		if(sB < sA && sB < sC) {
+    			slowest = sB;
+    		} else if(sC < sA && sC < sB) {
+    			slowest = sC;
+    		}
     		
-    		for(int i=0; i<G.getV(); i++) {
-    			for(int j=0; j<G.getV(); j++) {
-    				for(int k=0; k<G.getV(); k++) {
-    					if(i != j && j != k && i != k) {
-	    					distA = dijkstra(G, i);
-	    					distB = dijkstra(G, j);
-	    					distC = dijkstra(G, k);
-	    					if (maxTime < getMaxTime(distA, distB, distC)) {
-	    						maxTime = (int) getMaxTime(distA, distB, distC);
-	    					}
-	    					System.out.println(maxTime);
-    					}
+    		double maxDist = 0;
+    		
+    		for(int v=0; v<G.getV(); v++) {
+    			double dist[] = dijkstra(G, v);
+    			for(int i=0; i<dist.length; i++) {
+    				if(dist[i] > maxDist) {
+    					maxDist = dist[i];
     				}
     			}
     		}
-    		System.out.println(maxTime);
+    		
+    		// convert dist from kilometers to meters,
+    		// divide by meters per minute.
+    		maxTime = (int) maxDist * 1000 / slowest;
+    		
         return maxTime;
-    }
-    
-    public double getMaxTime(double[] a, double[] b, double[] c) {
-    		double max = a[0]*sA/1000 + b[0]*sB/1000 + c[0]*sC/1000;
-    		for(int i=0; i<a.length; i++) {
-    			for(int j=0; j<b.length; j++) {
-    				for(int k=0; k<c.length; k++) {
-    	    				if(a[i]*sA/1000 + b[j]*sB/1000 + c[k]*sC/1000 > max) {
-    	    					max = a[i]*sA/1000 + b[j]*sB/1000 + c[k]*sC/1000;
-    	    				}
-    	    			}
-        		}
-    		}
-    		return max;
     }
     
     public double[] dijkstra(Graph G, int source) {
