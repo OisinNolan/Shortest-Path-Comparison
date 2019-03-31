@@ -21,6 +21,10 @@ public class Graph {
 		return adj[v][w];
 	}
 	
+	public int getV() {
+		return adj.length;
+	}
+	
 	public void printGraph() {
 		System.out.print("\nV   ");
 		for(int i=0; i<adj.length; i++) {
