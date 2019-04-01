@@ -25,6 +25,9 @@ public class Graph {
 		return adj.length;
 	}
 	
+	// Function used to give idea of graph structure visually
+	
+	/*
 	public void printGraph() {
 		System.out.print("\nV   ");
 		for(int i=0; i<adj.length; i++) {
@@ -47,4 +50,5 @@ public class Graph {
 			System.out.print("\n");
 		}
 	}
+	*/
 }

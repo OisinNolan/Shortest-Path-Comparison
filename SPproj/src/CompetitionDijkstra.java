@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -36,7 +35,6 @@ public class CompetitionDijkstra {
 			N = fileScanner.nextInt(); // total number of intersections (vertices)
 			S = fileScanner.nextInt(); // total number of streets (edges)
 			G = new Graph(N);
-			String line = "";;
 			while(fileScanner.hasNextLine()) {
 				int v = fileScanner.nextInt();
 				int w = fileScanner.nextInt();
@@ -45,7 +43,8 @@ public class CompetitionDijkstra {
 				
 				G.addEdge(v, w, cost);
 			}
-			G.printGraph();
+			System.out.println("Graph constructed:");
+			System.out.println("#V = " + G.getV());
 			fileScanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
