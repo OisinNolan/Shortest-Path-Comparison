@@ -39,7 +39,9 @@ public class CompetitionDijkstra {
 				int v = fileScanner.nextInt();
 				int w = fileScanner.nextInt();
 				double cost = fileScanner.nextDouble();
-				fileScanner.nextLine();
+				if(fileScanner.hasNextLine()) {
+					fileScanner.nextLine();
+				}
 				
 				G.addEdge(v, w, cost);
 			}
@@ -84,7 +86,7 @@ public class CompetitionDijkstra {
     		
     		// convert dist from kilometers to meters,
     		// divide by meters per minute.
-    		maxTime = (int) maxDist * 1000 / slowest;
+    		maxTime = (int) Math.ceil(1000 * maxDist / slowest);
     		
         return maxTime;
     }
