@@ -6,11 +6,17 @@
  
  **/
 
+
 public class Graph {
 	private double adj[][];
 	
 	public Graph(int v) {
 		adj = new double[v][v];
+		for(int i=0; i<adj.length; i++) {
+			for(int j=0; j<adj.length; j++) {
+				adj[i][j] = -1;
+			}
+		}
 	}
 	
 	public void addEdge(int v, int w, double cost) {
@@ -26,7 +32,6 @@ public class Graph {
 	}
 	
 	// Function used to give idea of graph structure visually
-	
 	/*
 	public void printGraph() {
 		System.out.print("\nV   ");
@@ -50,5 +55,5 @@ public class Graph {
 			System.out.print("\n");
 		}
 	}
-	*/
+*/
 }

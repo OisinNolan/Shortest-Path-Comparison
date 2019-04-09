@@ -30,28 +30,29 @@ public class CompetitionDijkstra {
     		this.sA = sA; this.sB = sB; this.sC = sC;
     		// Creating Graph from file
     		
-    		try {
-			Scanner fileScanner = new Scanner(new File(filename));
-			N = fileScanner.nextInt(); // total number of intersections (vertices)
-			S = fileScanner.nextInt(); // total number of streets (edges)
-			G = new Graph(N);
-			while(fileScanner.hasNextLine()) {
-				int v = fileScanner.nextInt();
-				int w = fileScanner.nextInt();
-				double cost = fileScanner.nextDouble();
-				if(fileScanner.hasNextLine()) {
-					fileScanner.nextLine();
+    		if(filename != null && !filename.equals("")) {
+	    		try {
+				Scanner fileScanner = new Scanner(new File(filename));
+				N = fileScanner.nextInt(); // total number of intersections (vertices)
+				S = fileScanner.nextInt(); // total number of streets (edges)
+				G = new Graph(N);
+				while(fileScanner.hasNextLine()) {
+					int v = fileScanner.nextInt();
+					int w = fileScanner.nextInt();
+					double cost = fileScanner.nextDouble();
+					if(fileScanner.hasNextLine()) {
+						fileScanner.nextLine();
+					}
+					
+					G.addEdge(v, w, cost);
 				}
-				
-				G.addEdge(v, w, cost);
+				System.out.println("Graph constructed:");
+				System.out.println("#V = " + G.getV());
+				fileScanner.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
 			}
-			System.out.println("Graph constructed:");
-			System.out.println("#V = " + G.getV());
-			fileScanner.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-    		
+    		}
     		//getShortestPath(random stuff), if time is bigger, set max to time.
     }
 
@@ -61,6 +62,10 @@ public class CompetitionDijkstra {
     public int timeRequiredforCompetition(){
     		int maxTime = -1;
     		    		
+    		if(G == null || G.getV() == 0 || sA < 50 || sB < 50 || sC < 50 || sA > 100 || sB > 100 || sC > 100) {
+    			return -1;
+    		}
+    		
     		// get a dist[] for each v in V.
     		// find out which dist has the furthest away node.
     		// multiply slowest walker by longest distance.
@@ -80,6 +85,9 @@ public class CompetitionDijkstra {
     			for(int i=0; i<dist.length; i++) {
     				if(dist[i] > maxDist) {
     					maxDist = dist[i];
+    				}
+    				if(dist[i] == Double.POSITIVE_INFINITY) {
+    					return -1;
     				}
     			}
     		}
@@ -113,7 +121,7 @@ public class CompetitionDijkstra {
     			for(int v=0; v<N; v++) {
     				double e = G.getEdge(u, v);
     				// check if v is adjacent to u
-    				if(e > 0) {
+    				if(e > -1) {
     					// relax edge if possible
     					if(dist[v] > dist[u] + G.getEdge(u, v)) {
     						dist[v] = dist[u] + G.getEdge(u, v);

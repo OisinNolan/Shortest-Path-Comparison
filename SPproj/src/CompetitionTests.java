@@ -29,26 +29,19 @@ public class CompetitionTests {
 
     @Test
     public void testDijkstraConstructor() {
-    		CompetitionDijkstra cd = new CompetitionDijkstra("1000EWD.txt", 100, 75, 50);
+    		CompetitionDijkstra cd = new CompetitionDijkstra("tinyEWD.txt", 100, 75, 50);
     		int time = cd.timeRequiredforCompetition();
-    		int expectedResult = 20;
+    		System.out.println(time);
+    		int expectedResult = 38;
     		assertEquals(expectedResult, time);
     }
 
     @Test
     public void testFWConstructor() {
-    		CompetitionFloydWarshall cfw = new CompetitionFloydWarshall("1000EWD.txt", 100, 75, 50);
+    		CompetitionFloydWarshall cfw = new CompetitionFloydWarshall("tinyEWD.txt", 100, 75, 50);
 		int time = cfw.timeRequiredforCompetition();
-		int expectedResult = 20;
+		System.out.println(time);
+		int expectedResult = 38;
 		assertEquals(expectedResult, time);
     }
-    
-    /*
-    @Test
-    public void testFileNotFound() {
-    		//test exception
-    		CompetitionDijkstra cd = new CompetitionDijkstra("test.txt", 50, 75, 100);
-    		CompetitionFloydWarshall cfw = new CompetitionFloydWarshall("test.txt", 50, 75, 100);
-    }
-    */
 }

@@ -32,6 +32,7 @@ public class CompetitionFloydWarshall {
 	    	this.sA = sA; this.sB = sB; this.sC = sC;
 			// Creating Graph from file
 			
+	    	if(filename != null && !filename.equals("")) {
 			try {
 			Scanner fileScanner = new Scanner(new File(filename));
 			N = fileScanner.nextInt(); // total number of intersections (vertices)
@@ -50,10 +51,10 @@ public class CompetitionFloydWarshall {
 			System.out.println("Graph constructed:");
 			System.out.println("#V = " + G.getV());
 			fileScanner.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+	    	}
 		//getShortestPath(random stuff), if time is bigger, set max to time.
     }
 
@@ -64,6 +65,10 @@ public class CompetitionFloydWarshall {
     public int timeRequiredforCompetition(){
     		int maxTime = -1;
 		
+    		if(G == null || G.getV() == 0 || sA < 50 || sB < 50 || sC < 50 || sA > 100 || sB > 100 || sC > 100) {
+    			return -1;
+    		}
+    		
 		// slowest speed:
 		int slowest = sA;
 		if(sB < sA && sB < sC) {
@@ -79,6 +84,9 @@ public class CompetitionFloydWarshall {
 			for(int j=0; j<dist[i].length; j++) {
 				if(dist[i][j] > maxDist) {
 					maxDist = dist[i][j];
+				}
+				if(dist[i][j] == Double.POSITIVE_INFINITY) {
+					return -1;
 				}
 			}
 		}
@@ -106,7 +114,7 @@ public class CompetitionFloydWarshall {
     		// fill dist[][] and prev[][] with initial values
     		for(int v=0; v<V; v++) {
     			for(int w=0; w<V; w++) {
-    				if(G.getEdge(v, w) > 0) {
+    				if(G.getEdge(v, w) > -1) {
     					dist[v][w] = G.getEdge(v, w);
     					prev[v][w] = w;
     				}
