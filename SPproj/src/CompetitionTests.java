@@ -18,6 +18,18 @@
  * 	  this was not taken into consideration.
  * 
  * Differences between Floyd-Warshall and Dijkstra:
+ * 
+ * Floyd-Warshall computes the shortest path between all pairs of vertices in the graph,
+ * stored appropriately in a 2-d array. This algorithm has a time complexity of O(V^3), and 
+ * thus is appropriate to choose for high density graphs.
+ * 
+ * Dijkstra computes the shortest paths from a given source vertex to every other vertex in
+ * the graph, stored appropriately in a 1-d array in which the index identifies the 
+ * vertex and the value represents the distance from the source to that vertex. Dijkstra's
+ * algorithm, as implemented in this assignment (adjacency matrix, priority queue) has
+ * a time complexity of O(v^2 + e log v) and thus becomes slower as the graph becomes
+ * more dense.
+ * 
  */
 
 
